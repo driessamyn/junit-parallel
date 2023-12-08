@@ -1,0 +1,20 @@
+plugins {
+    id 'kotlin-common-conventions'
+    id 'java-library'
+}
+
+dependencies {
+    testImplementation project(':tests')
+}
+
+tasks.withType(Test).configureEach {
+    testLogging {
+        showStandardStreams = true
+    }
+    systemProperties([
+            // Configuration parameters to execute top-level classes in parallel but methods in same thread
+            'junit.jupiter.execution.parallel.enabled'                 : 'true',
+            'junit.jupiter.execution.parallel.mode.default'            : 'concurrent',
+            'junit.jupiter.execution.parallel.mode.classes.default'    : 'concurrent',
+    ])
+}
